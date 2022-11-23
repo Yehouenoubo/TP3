@@ -9,6 +9,7 @@ numero_combat = 0
 nombre_victoires = 0
 nombre_defaites = 0
 niveau_vie = 20
+
 force_adversaire = random.randint(1, 5)
 print("Vous tombez face à un adversaire de difficulté", force_adversaire)
 
@@ -17,8 +18,14 @@ menu = int(input("Que voulez-vous faire ? \n\t 1- Combattre cet adversaire \n\t 
 if menu == 1:
     numero_combat = +1
     numero_adversaire = +1
-    lance_de = random.randint(1, 6)
-    if lance_de >= force_adversaire :
-        vie = niveau_vie + lance_de
+    score_de = random.randint(1, 6)
+    print("\n\nVoici le statut de la partie", "\nAdversaire :", numero_adversaire, " \n Force de l'adversaire :",
+          force_adversaire, "\n Niveau de vie de l'usager :", niveau_vie, "\n Combat", numero_combat, ":",
+          nombre_victoires, "et", nombre_defaites, "\n Lancé du dé :", score_de, "\n Dernier combat : Aucun")
+
+    if score_de >= force_adversaire :
+        vie = niveau_vie + score_de
         nombre_victoires = +1
-        print("Adversaire :", numero_adversaire ," \n Force de l'adversaire :", force_adversaire ,"\n Niveau de vie de l'usager :", vie ,"\n Combat", numero_combat ,":", nombre_victoires ,"et", nombre_defaites )
+        print("\nVous avez gagné. Voici vos nouvelles stats")
+
+
