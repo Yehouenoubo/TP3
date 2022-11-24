@@ -4,28 +4,85 @@
 
 import random
 
-numero_adversaire = 0
-numero_combat = 0
-nombre_victoires = 0
-nombre_defaites = 0
-niveau_vie = 20
+# En ce moment, on joue au jeu	
+jouer = True
 
-force_adversaire = random.randint(1, 5)
-print("Vous tombez face à un adversaire de difficulté", force_adversaire)
+# Pendant qu'on joue au jeu
+while jouer:
+	
+	# Je définis les stats de base
+	numero_adversaire = 0
+	numero_combat = 0
+	nombre_victoires = 0
+	nombre_defaites = 0
+	nombre_victoires_consecutives = 0
+	niveau_vie = 20
+	force_adversaire = random.randint(1, 5)
 
-menu = int(input("Que voulez-vous faire ? \n\t 1- Combattre cet adversaire \n\t 2- Contourner cet adversaire et aller ouvrir une autre porte \n\t 3- Afficher les règles du jeu \n\t 4- Quitter la partie"))
-
-if menu == 1:
-    numero_combat = +1
-    numero_adversaire = +1
-    score_de = random.randint(1, 6)
-    print("\n\nVoici le statut de la partie", "\nAdversaire :", numero_adversaire, " \n Force de l'adversaire :",
-          force_adversaire, "\n Niveau de vie de l'usager :", niveau_vie, "\n Combat", numero_combat, ":",
-          nombre_victoires, "et", nombre_defaites, "\n Lancé du dé :", score_de, "\n Dernier combat : Aucun")
-
-    if score_de >= force_adversaire :
-        vie = niveau_vie + score_de
-        nombre_victoires = +1
-        print("\nVous avez gagné. Voici vos nouvelles stats")
+		print("Vous tombez face à un adversaire de difficulté", force_adversaire)
+	
+	# Voici le menu
+	menu = int(input("Que voulez-vous faire ? \n\t 1- Combattre cet adversaire \n\t 2- Contourner cet adversaire et aller ouvrir une autre porte \n\t 3- Afficher les règles du jeu \n\t 4- Quitter la partie"))
+	
+	# Si le choix est l'option 1	
+	if menu == 1:
+	    
+	    # Stats avant le combat
+	    def combat():
+		    numero_combat = +1
+		    numero_adversaire = +1
+		    score_de = random.randint(1, 6)
+		    vie = niveau_vie + score_de
+		    nombre_victoires = +1
+		    nombre_victoires_consecutives = +1
+		    print("\n\nVoici le statut de la partie", "\nAdversaire :", numero_adversaire, " \n Force de l'adversaire :", force_adversaire, "\n Niveau de vie de l'usager :", niveau_vie, "\n Combat", numero_combat, ":", nombre_victoires, "et", nombre_defaites, "\n Lancé du dé :", score_de, "\n Dernier combat : Aucun")
+		
+		    # Si on gagne le combat
+		    if score_de >= force_adversaire :
+		        vie = niveau_vie + score_de
+		        nombre_victoires = +1
+		        nombre_victoires_consecutives = +1
+		        print("\nVous avez gagné. Voici vos nouvelles stats : \n Niveau de vie :", vie, "\nNombre de victoires consécutives :", nombre_victoires_consecutives)
+		        question = str(input("Voulez-vous combattre un nouvel adversaire y/n ?"))
+		        if question == "y":
+		        	combat()
+		        else:
+		        	jouer = False
+	       
+	       # Si on perd le combat
+	       else:
+	       		vie = niveau_vie - score_de
+		        nombre_victoires = -1
+		        print("\nVous avez perdu. Voici vos nouvelles stats : \n Niveau de vie :", vie)
+		        question = str(input("\nVoulez-vous combattre un nouvel adversaire y/n ?"))
+		        if question == "y":
+		        	combat()
+		        else:
+		        	jouer = False
+     combat()
+	
+	# Si le choix est l'option 2
+	elif menu == 2:
+		vie = niveau_vie - 1
+		print("\nVous avez perdu un point de pénalité pour avoir fui le combat.")
+		question = question = str(input("\nVoulez-vous combattre un adversaire y/n ?"))
+    if question == "y":
+    	combat()
+    else:
+      jouer = False
+      
+  # Si le choix est l'option 3    
+	elif menu == 3:
+		print("Pour réussir un combat, il faut que la valeur du dé lancé soit supérieure à la force de l’adversaire.  Dans ce cas, le niveau de vie de l’usager est augmenté de la force de l’adversaire. Une défaite a lieu lorsque la valeur du dé lancé par l’usager est inférieure ou égale à la force de l’adversaire.  Dans ce cas, le niveau de vie de l’usager est diminué de la force de l’adversaire. \n\nLa partie se termine lorsque les points de vie de l’usager tombent sous 0. \n\nL’usager peut combattre ou éviter chaque adversaire, dans le cas de l’évitement, il y a une pénalité de 1 point de vie.")
+		question = question = str(input("\nVoulez-vous combattre un adversaire y/n ?"))
+    if question == "y":
+    	combat()
+    else:
+      jouer = False
+  
+  # Si le choix est l'option 4    
+  else:
+  	print("Merci et au revoir")
+  	jouer = False
 
 
